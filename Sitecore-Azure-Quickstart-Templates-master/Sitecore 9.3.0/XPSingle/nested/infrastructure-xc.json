@@ -206,7 +206,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -238,7 +238,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -270,7 +270,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -302,7 +302,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -334,7 +334,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -366,7 +366,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -398,7 +398,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
@@ -430,7 +430,7 @@
         }
       ],
 	  "dependsOn": [
-		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
 	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
