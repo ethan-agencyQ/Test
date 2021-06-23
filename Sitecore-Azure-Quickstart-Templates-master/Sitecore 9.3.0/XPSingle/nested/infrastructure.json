@@ -579,7 +579,7 @@
     "infrastructure": {
       "type": "object",
       "value": {
-        "sqlServerFqdn": "[reference(resourceId(variables('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion')).fullyQualifiedDomainName]",
+        "sqlServerFqdn": "[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion')).fullyQualifiedDomainName]",
         "siWebAppHostName": "[reference(concat('Microsoft.Web/sites/', variables('siWebAppNameTidy')), variables('webApiVersion')).defaultHostName]",
         "singleWebAppHostName": "[reference(concat('Microsoft.Web/sites/', variables('singleWebAppNameTidy')), variables('webApiVersion')).defaultHostName]",
         "authCertificateThumbprint": "[reference(resourceId('Microsoft.Web/certificates', variables('authCertificateNameTidy'))).thumbprint]"
