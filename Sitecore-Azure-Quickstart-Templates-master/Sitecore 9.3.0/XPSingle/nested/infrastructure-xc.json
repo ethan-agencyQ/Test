@@ -197,11 +197,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -227,11 +224,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -257,11 +251,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -287,11 +278,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -317,11 +305,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -347,11 +332,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -377,11 +359,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
@@ -407,11 +386,8 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('dbApiVersion')]",
               "properties": {
-                "edition": "[variables('databaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
-                "maxSizeBytes": "[variables('databaseMaxSize')]",
-                "elasticPoolId": "[variables('elasticPoolId')]",
-                "requestedServiceObjectiveName": "[variables('databaseLevel')]"
+                "elasticPoolId": "[variables('elasticPoolId')]"
               },
               "resources": [
                 {
