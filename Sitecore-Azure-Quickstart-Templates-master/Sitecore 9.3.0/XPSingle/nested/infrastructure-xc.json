@@ -6,6 +6,7 @@
     "serverFarmApiVersion": "2018-02-01",
     "dbApiVersion": "2014-04-01-preview",
     "sqlServerNameTidy": "[toLower(trim(parameters('sqlServerName')))]",
+    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', '[resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('elasticPoolName'))]')]",
     "shardMapManagerSqlDatabaseNameTidy": "[toLower(trim(parameters('shardMapManagerSqlDatabaseName')))]",
     "shard0SqlDatabaseNameTidy": "[toLower(trim(parameters('shard0SqlDatabaseName')))]",
     "shard1SqlDatabaseNameTidy": "[toLower(trim(parameters('shard1SqlDatabaseName')))]",
@@ -49,6 +50,10 @@
       "type": "string",
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-sql')]"
+    },
+    "sqlElasticPoolName": {
+      "type": "string",
+      "defaultValue": ""
     },
     "sqlDatabaseCollation": {
       "type": "string",
@@ -192,6 +197,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -221,6 +227,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -250,6 +257,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -279,6 +287,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -308,6 +317,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -337,6 +347,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -366,6 +377,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
@@ -395,6 +407,7 @@
                 "edition": "[parameters('sqlDatabaseEdition')]",
                 "collation": "[parameters('sqlDatabaseCollation')]",
                 "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "elasticPoolId": "[variables('elasticPoolId')]",
                 "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
               },
               "resources": [
