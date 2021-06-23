@@ -9,7 +9,7 @@
     "applicationInsightsApiVersion": "2015-05-01",
     "certificateApiVersion": "2014-11-01",
     "sqlServerNameTidy": "[toLower(trim(parameters('sqlServerName')))]",
-    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('elasticPoolName')))]",
+    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('sqlElasticPoolName')))]",
     "coreSqlDatabaseNameTidy": "[toLower(trim(parameters('coreSqlDatabaseName')))]",
     "webSqlDatabaseNameTidy": "[toLower(trim(parameters('webSqlDatabaseName')))]",
     "masterSqlDatabaseNameTidy": "[toLower(trim(parameters('masterSqlDatabaseName')))]",
