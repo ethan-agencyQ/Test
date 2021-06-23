@@ -329,6 +329,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').core]"
@@ -358,6 +361,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').master]"
@@ -387,6 +393,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').web]"
@@ -416,6 +425,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').pools]"
@@ -445,6 +457,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').tasks]"
@@ -474,6 +489,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').forms]"
@@ -503,6 +521,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').exmmaster]"

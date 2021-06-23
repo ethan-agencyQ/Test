@@ -45,7 +45,11 @@
       "minLength": 1,
       "defaultValue": "[resourceGroup().location]"
     },
-
+    "sqlServerResourceGroup": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().name]"
+    },
     "sqlServerName": {
       "type": "string",
       "minLength": 1,
@@ -201,6 +205,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').xcRefData]"
@@ -230,6 +237,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').reporting]"
@@ -259,6 +269,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').xcShardMapManager]"
@@ -288,6 +301,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').xcShard0]"
@@ -317,6 +333,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').xcShard1]"
@@ -346,6 +365,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').ma]"
@@ -375,6 +397,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').cortexProcessingEngineTasks]"
@@ -404,6 +429,9 @@
           }
         }
       ],
+	  "dependsOn": [
+		"[reference(resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy')), variables('dbApiVersion'))]"
+	  ],
       "tags": {
         "provider": "[variables('sitecoreTags').provider]",
         "logicalName": "[variables('sitecoreTags').cortexProcessingEngineStorage]"

@@ -825,6 +825,9 @@
             "value": "[parameters('location')]"
           },
 
+          "sqlServerResourceGroup": {
+            "value": "[parameters('sqlServerResourceGroup')]"
+          },
           "sqlServerName": {
             "value": "[parameters('sqlServerName')]"
           },
