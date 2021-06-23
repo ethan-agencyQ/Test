@@ -6,7 +6,7 @@
     "serverFarmApiVersion": "2018-02-01",
     "dbApiVersion": "2014-04-01-preview",
     "sqlServerNameTidy": "[toLower(trim(parameters('sqlServerName')))]",
-    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('sqlElasticPoolName')))]",
+    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('sqlElasticPoolName')))]",
     "databaseLevel": "[if(empty(parameters('sqlElasticPoolName')), parameters('sqlBasicDatabaseServiceObjectiveLevel'), '')]",
     "databaseEdition": "[if(empty(parameters('sqlElasticPoolName')), parameters('sqlDatabaseEdition'), '')]",
     "databaseMaxSize": "[if(empty(parameters('sqlElasticPoolName')), parameters('sqlDatabaseMaxSize'), '')]",
