@@ -67,6 +67,12 @@
       "minLength": 1
     },
 
+    "sqlServerResourceGroup": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().name]"
+    },
+
     "sqlServerName": {
       "type": "string",
       "minLength": 1,
@@ -634,6 +640,9 @@
             "value": "[parameters('location')]"
           },
 
+          "sqlServerResourceGroup": {
+            "value": "[parameters('sqlServerResourceGroup')]"
+          },
           "sqlServerName": {
             "value": "[parameters('sqlServerName')]"
           },
