@@ -6,7 +6,7 @@
     "serverFarmApiVersion": "2018-02-01",
     "dbApiVersion": "2014-04-01-preview",
     "sqlServerNameTidy": "[toLower(trim(parameters('sqlServerName')))]",
-    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', '[resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('elasticPoolName'))]')]",
+    "elasticPoolId": "[if(empty(parameters('sqlElasticPoolName')), '', resourceId('Microsoft.Sql/servers/elasticPools', parameters('sqlServerName') , parameters('elasticPoolName')))]",
     "shardMapManagerSqlDatabaseNameTidy": "[toLower(trim(parameters('shardMapManagerSqlDatabaseName')))]",
     "shard0SqlDatabaseNameTidy": "[toLower(trim(parameters('shard0SqlDatabaseName')))]",
     "shard1SqlDatabaseNameTidy": "[toLower(trim(parameters('shard1SqlDatabaseName')))]",
