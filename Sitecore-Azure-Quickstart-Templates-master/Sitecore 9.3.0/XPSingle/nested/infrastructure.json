@@ -8,9 +8,7 @@
     "searchApiVersion": "2015-08-19",
     "applicationInsightsApiVersion": "2015-05-01",
     "certificateApiVersion": "2014-11-01",
-
     "sqlServerNameTidy": "[toLower(trim(parameters('sqlServerName')))]",
-
     "coreSqlDatabaseNameTidy": "[toLower(trim(parameters('coreSqlDatabaseName')))]",
     "webSqlDatabaseNameTidy": "[toLower(trim(parameters('webSqlDatabaseName')))]",
     "masterSqlDatabaseNameTidy": "[toLower(trim(parameters('masterSqlDatabaseName')))]",
@@ -18,18 +16,13 @@
     "tasksSqlDatabaseNameTidy": "[toLower(trim(parameters('tasksSqlDatabaseName')))]",
     "formsSqlDatabaseNameTidy": "[toLower(trim(parameters('formsSqlDatabaseName')))]",
     "exmMasterSqlDatabaseNameTidy": "[toLower(trim(parameters('exmMasterSqlDatabaseName')))]",
-
     "singleHostingPlanNameTidy": "[toLower(trim(parameters('singleHostingPlanName')))]",
-
     "siWebAppNameTidy": "[toLower(trim(parameters('siWebAppName')))]",
     "singleWebAppNameTidy": "[toLower(trim(parameters('singleWebAppName')))]",
-
     "searchServiceNameTidy": "[toLower(trim(parameters('searchServiceName')))]",
     "applicationInsightsNameTidy": "[toLower(trim(parameters('applicationInsightsName')))]",
     "applicationInsightsPricePlanTidy": "[toLower(trim(parameters('applicationInsightsPricePlan')))]",
-
     "authCertificateNameTidy": "[toLower(trim(parameters('authCertificateName')))]",
-
     "sitecoreTags": {
       "provider": "b51535c2-ab3e-4a68-95f8-e2e3c9a19299",
       "si": "si",
@@ -40,7 +33,7 @@
       "pools": "prc-pools",
       "tasks": "prc-tasks",
       "forms": "forms",
-      "exmmaster" : "exmmaster"
+      "exmmaster": "exmmaster"
     }
   },
   "parameters": {
@@ -53,13 +46,11 @@
       "minLength": 1,
       "defaultValue": "[resourceGroup().location]"
     },
-
     "sqlServerResourceGroup": {
       "type": "string",
       "minLength": 1,
       "defaultValue": "[resourceGroup().name]"
     },
-
     "sqlServerName": {
       "type": "string",
       "minLength": 1,
@@ -73,7 +64,6 @@
       "type": "securestring",
       "minLength": 8
     },
-
     "sqlServerVersion": {
       "type": "string",
       "minLength": 1,
@@ -104,7 +94,6 @@
       "minLength": 1,
       "defaultValue": "S1"
     },
-
     "coreSqlDatabaseName": {
       "type": "string",
       "minLength": 1,
@@ -140,12 +129,10 @@
       "minLength": 1,
       "defaultValue": "[concat(parameters('deploymentId'), '-exmmaster-db')]"
     },
-
     "deployAzureSearch": {
       "type": "bool",
       "defaultValue": true
     },
-    
     "searchServiceName": {
       "type": "string",
       "defaultValue": "[concat(parameters('deploymentId'), '-as')]"
@@ -166,7 +153,6 @@
       "type": "int",
       "defaultValue": 1
     },
-
     "useApplicationInsights": {
       "type": "bool",
       "defaultValue": true
@@ -188,13 +174,15 @@
     "applicationInsightsCurrentBillingFeatures": {
       "type": "string",
       "defaultValue": "Basic",
-      "allowedValues": [ "Basic", "Application Insights Enterprise" ]
+      "allowedValues": [
+        "Basic",
+        "Application Insights Enterprise"
+      ]
     },
     "applicationInsightsDataVolumeCap": {
       "type": "string",
       "defaultValue": "0.33"
     },
-
     "singleHostingPlanName": {
       "type": "string",
       "minLength": 1,
@@ -208,7 +196,6 @@
       "type": "int",
       "defaultValue": 1
     },
-
     "siWebAppName": {
       "type": "string",
       "minLength": 1,
@@ -306,227 +293,221 @@
       }
     },
     {
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('coreSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "nestedTemplate",
+      "resourceGroup": "[parameters('sqlServerResourceGroup')]",
       "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('coreSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('coreSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('coreSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').core]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('masterSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('masterSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').master]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('webSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('webSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').web]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('poolsSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('poolsSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').pools]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('tasksSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('tasksSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').tasks]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('formsSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('formsSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').forms]"
+              }
+            },
+            {
+              "type": "Microsoft.Sql/servers/databases",
+              "name": "[concat(variables('sqlServerNameTidy'), '/', variables('exmMasterSqlDatabaseNameTidy'))]",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('dbApiVersion')]",
+              "properties": {
+                "edition": "[parameters('sqlDatabaseEdition')]",
+                "collation": "[parameters('sqlDatabaseCollation')]",
+                "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
+                "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
+              },
+              "resources": [
+                {
+                  "name": "current",
+                  "type": "transparentDataEncryption",
+                  "dependsOn": [
+                    "[variables('exmMasterSqlDatabaseNameTidy')]"
+                  ],
+                  "apiVersion": "2014-04-01",
+                  "properties": {
+                    "status": "Enabled"
+                  }
+                }
+              ],
+              "tags": {
+                "provider": "[variables('sitecoreTags').provider]",
+                "logicalName": "[variables('sitecoreTags').exmmaster]"
+              }
+            }
+          ]
         }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').core]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('masterSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('masterSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').master]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('webSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('webSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').web]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('poolsSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('poolsSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').pools]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('tasksSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('tasksSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').tasks]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('formsSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('formsSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').forms]"
-      }
-    },
-	{
-      "type": "Microsoft.Sql/servers/databases",
-      "name": "[concat(variables('sqlServerNameTidy'), '/', variables('exmMasterSqlDatabaseNameTidy'))]",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('dbApiVersion')]",
-      "properties": {
-        "edition": "[parameters('sqlDatabaseEdition')]",
-        "collation": "[parameters('sqlDatabaseCollation')]",
-        "maxSizeBytes": "[parameters('sqlDatabaseMaxSize')]",
-        "requestedServiceObjectiveName": "[parameters('sqlBasicDatabaseServiceObjectiveLevel')]"
-      },
-      "resources": [
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "dependsOn": [
-            "[variables('exmMasterSqlDatabaseNameTidy')]"
-          ],
-          "apiVersion": "2014-04-01",
-          "properties": {
-            "status": "Enabled"
-          }
-        }
-      ],
-	  "dependsOn": [
-		"[resourceId(parameters('sqlServerResourceGroup'), 'Microsoft.Sql/servers', variables('sqlServerNameTidy'))]"
-	  ],
-      "tags": {
-        "provider": "[variables('sitecoreTags').provider]",
-        "logicalName": "[variables('sitecoreTags').exmmaster]"
       }
     },
     {
