@@ -368,7 +368,7 @@
       ]
     },
     {
-      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy')]",
+      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy-setCompatibilityLevelMsDeployPackageUrl')]",
       "type": "Microsoft.Web/sites/extensions",
       "location": "[parameters('location')]",
       "apiVersion": "[variables('webApiVersion')]",
@@ -383,7 +383,7 @@
       }
     },
     {
-      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy')]",
+      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy-singleMsDeployPackageUrl')]",
       "type": "Microsoft.Web/sites/extensions",
       "location": "[parameters('location')]",
       "apiVersion": "[variables('webApiVersion')]",
@@ -464,8 +464,9 @@
         "WEBSITE_NODE_DEFAULT_VERSION": "[parameters('nodeJsVersion')]",
         "SITECORE_ENVIRONMENT_TYPE": "[parameters('environmentType')]"
       },
-      "dependsOn": [
-        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy')]"
+      "dependsOn": [        
+        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy-setCompatibilityLevelMsDeployPackageUrl')]",
+        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy-singleMsDeployPackageUrl')]"
       ]
     }
   ]
