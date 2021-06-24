@@ -340,18 +340,23 @@
       "location": "[parameters('location')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {
-        "packageUri": "[parameters('siMsDeployPackageUrl')]",
-        "setParameters": {
-          "IIS Web Application Name": "[variables('siWebAppNameTidy')]",
-          "Security Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('coreSqlDatabaseNameTidy'),';User Id=', parameters('coreSqlDatabaseUserName'), ';Password=', parameters('coreSqlDatabasePassword'), ';')]",
-          "CertificateThumbprint": "[parameters('authCertificateThumbprint')]",
-          "CertificateStoreLocation": "CurrentUser",
-          "PasswordRecoveryUrl": "[concat('https://', parameters('singleWebAppHostName'))]",
-          "Application Insights Instrumentation Key": "[if(parameters('useApplicationInsights'), reference(resourceId('Microsoft.Insights/Components', variables('applicationInsightsNameTidy')), variables('applicationInsightsApiVersion')).InstrumentationKey, '')]",
-          "License Xml": "[parameters('licenseXml')]",
-          "AllowedCorsOrigins": "[concat('https://', parameters('singleWebAppHostName'))]",
-          "ClientSecret": "[parameters('siClientSecret')]"
-        }
+        "mode": "Incremental",
+        "addOnPackages": [
+          {
+            "packageUri": "[parameters('siMsDeployPackageUrl')]",
+            "setParameters": {
+              "IIS Web Application Name": "[variables('siWebAppNameTidy')]",
+              "Security Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=',variables('coreSqlDatabaseNameTidy'),';User Id=', parameters('coreSqlDatabaseUserName'), ';Password=', parameters('coreSqlDatabasePassword'), ';')]",
+              "CertificateThumbprint": "[parameters('authCertificateThumbprint')]",
+              "CertificateStoreLocation": "CurrentUser",
+              "PasswordRecoveryUrl": "[concat('https://', parameters('singleWebAppHostName'))]",
+              "Application Insights Instrumentation Key": "[if(parameters('useApplicationInsights'), reference(resourceId('Microsoft.Insights/Components', variables('applicationInsightsNameTidy')), variables('applicationInsightsApiVersion')).InstrumentationKey, '')]",
+              "License Xml": "[parameters('licenseXml')]",
+              "AllowedCorsOrigins": "[concat('https://', parameters('singleWebAppHostName'))]",
+              "ClientSecret": "[parameters('siClientSecret')]"
+            }
+          }
+        ]
       }
     },
     {
@@ -368,22 +373,7 @@
       ]
     },
     {
-      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy-setCompatibilityLevelMsDeployPackageUrl')]",
-      "type": "Microsoft.Web/sites/extensions",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('webApiVersion')]",
-      "properties": {
-        "packageUri": "[parameters('setCompatibilityLevelMsDeployPackageUrl')]",
-        "dbType": "SQL",
-        "connectionString": "[concat('Data Source=tcp:', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
-        "setParameters": {
-          "Application Path": "[variables('singleWebAppNameTidy')]",
-          "Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"
-        }
-      }
-    },
-    {
-      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy-singleMsDeployPackageUrl')]",
+      "name": "[concat(variables('singleWebAppNameTidy'), '/', 'MSDeploy')]",
       "type": "Microsoft.Web/sites/extensions",
       "location": "[parameters('location')]",
       "apiVersion": "[variables('webApiVersion')]",
@@ -464,9 +454,8 @@
         "WEBSITE_NODE_DEFAULT_VERSION": "[parameters('nodeJsVersion')]",
         "SITECORE_ENVIRONMENT_TYPE": "[parameters('environmentType')]"
       },
-      "dependsOn": [        
-        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy-setCompatibilityLevelMsDeployPackageUrl')]",
-        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy-singleMsDeployPackageUrl')]"
+      "dependsOn": [
+        "[concat('Microsoft.Web/Sites/', variables('singleWebAppNameTidy'), '/Extensions/MSDeploy')]"
       ]
     }
   ]
