@@ -992,12 +992,6 @@
       "name": "[variables('authCertificateNameTidy')]",
       "apiVersion": "[variables('certificateApiVersion')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('siHostingPlanNameTidy'))]",
-        "[resourceId('Microsoft.Web/serverfarms', variables('cmHostingPlanNameTidy'))]",
-        "[resourceId('Microsoft.Web/serverfarms', variables('cdHostingPlanNameTidy'))]",
-        "[resourceId('Microsoft.Web/serverfarms', variables('prcHostingPlanNameTidy'))]"
-      ],
       "properties": {
         "password": "[parameters('authCertificatePassword')]",
         "pfxBlob": "[parameters('authCertificateBlob')]",
