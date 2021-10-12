@@ -955,10 +955,7 @@
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
         }
-      },
-      "dependsOn": [
-        "[concat(parameters('deploymentId'), '-' , variables('dependencies')[copyIndex()].name)]"
-      ]
+      }
     }
   ]
 }
