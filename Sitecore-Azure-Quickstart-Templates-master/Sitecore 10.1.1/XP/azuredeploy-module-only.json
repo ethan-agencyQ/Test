@@ -4,9 +4,6 @@
   "variables": {
     "resourcesApiVersion": "2018-05-01",
     "defaultDependency": [
-      {
-        "name": "[if(parameters('deployExmDds'), 'application-exm', 'application')]"
-      }
     ],
     "dependencies": "[concat(variables('defaultDependency'), parameters('modules').items)]"
   },
